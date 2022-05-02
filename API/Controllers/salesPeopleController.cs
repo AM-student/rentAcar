@@ -1,80 +1,48 @@
-﻿/*using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Application.Salespeople;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Domain;
+using MediatR;
+
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class salesPeopleController : ControllerBase
+    public class SalesPeopleController : BaseApiController
     {
-       
-        private readonly DataContext _context;
-        public salesPeopleController(DataContext context)
-        {
-            _context = context;
-        }
         [HttpGet]
-        public async Task<ActionResult<List<salespeople>>> GetAllSalesPeople()
+        public async Task<ActionResult<List<Salesperson>>> GetAllSalespeople()
         {
-            return Ok(await _context.SalesPeoples.ToListAsync());
+            return await Mediator.Send(new List.Query());
         }
-
+        
         [HttpGet("{id}")]
-        public async Task<ActionResult<salespeople>> GetSingleSp(int id)
+        public async Task<ActionResult<Salesperson>> GetSingleSP(int id)
         {
-            var dbSalesPeople = await _context.SalesPeoples.FindAsync(id);
-            if (dbSalesPeople == null)
-            {
-                return BadRequest("Sp not found!");
-            }
-            return Ok(dbSalesPeople);
+            return await Mediator.Send(new Details.Query{Id=id});
         }
-
+        
         [HttpPost]
-        public async Task<ActionResult<salespeople>> AddSp(salespeople addSp)
-        {
-            _context.SalesPeoples.Add(addSp);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.SalesPeoples.ToListAsync());
+        public async Task<IActionResult> AddSP(Salesperson addSp)
+        {    
+            return Ok(await Mediator.Send(new Create.Command{salespeople = addSp}));
         }
-
-        [HttpPut]
-        public async Task<ActionResult<salespeople>> UpdateSp(salespeople updateSp)
+        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateSp(int id, Salesperson updatesps)
         {
-            var dbSalesPeople = await _context.SalesPeoples.FindAsync(updateSp.sp_id);
-            if (dbSalesPeople == null)
-            {
-                return BadRequest("Sp not found!");
-            }
-            dbSalesPeople.personal_id = updateSp.personal_id;
-            dbSalesPeople.atk_id = updateSp.atk_id;
-            dbSalesPeople.bankaccount = updateSp.bankaccount;
-            dbSalesPeople.firstname = updateSp.firstname;
-            dbSalesPeople.lastname = updateSp.lastname;
-            dbSalesPeople.address = updateSp.address;
-            dbSalesPeople.zip = updateSp.zip;
-
-
-            await _context.SaveChangesAsync();
-            return Ok(await _context.SalesPeoples.ToListAsync());
+           updatesps.sp_id = id;
+           return Ok(await Mediator.Send(new Edit.Command{salespeople=updatesps}));
         }
-
+        
         [HttpDelete("{id}")]
-        public async Task<ActionResult<salespeople>> DeleteSp(int id)
+        public async Task<IActionResult> DeleteSp(int id)
         {
-            var dbSalesPeople = await _context.SalesPeoples.FindAsync(id);
-            if (dbSalesPeople == null)
-            {
-                return BadRequest("Sp not found!");
-            }
-            _context.SalesPeoples.Remove(dbSalesPeople);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.SalesPeoples.ToListAsync());
+            return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
     }
-}*/
+}
+

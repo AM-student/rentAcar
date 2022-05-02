@@ -3,79 +3,47 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Application.Users;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Domain;
+using MediatR;
 
 namespace API.Controllers
 {   
     
     public class UsersController : BaseApiController
     {
-        
-        private readonly DataContext _context;
-        public UsersController(DataContext context) 
-        {
-            _context = context;
-        }
-        
+     
         [HttpGet]
         public async Task<ActionResult<List<User>>> GetAllUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await Mediator.Send(new List.Query());
         }
-
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetSingleUser(int id)
         {
-            var dbUsers = await _context.Users.FindAsync(id);
-            if (dbUsers == null) {
-                return BadRequest("User not found!");
-            }
-            return Ok(dbUsers);
+            return await Mediator.Send(new Details.Query{Id=id});
         }
-
+        
         [HttpPost]
-        public async Task<ActionResult<User>> AddUser(User addUser)
-        { 
-            _context.Users.Add(addUser);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.Users.ToListAsync());
+        public async Task<IActionResult> AddUser(User addUser)
+        {    
+            return Ok(await Mediator.Send(new Create.Command{Users = addUser}));
         }
-
-        [HttpPut]
-        public async Task<ActionResult<User>> UpdateUser(User updateUser)
+        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, User updateusers)
         {
-            var dbUsers = await _context.Users.FindAsync(updateUser.user_id);
-            if (dbUsers == null)
-            {
-                return BadRequest("User not found!");
-            }
-            dbUsers.username = updateUser.username;
-            dbUsers.email = updateUser.email;
-            dbUsers.password = updateUser.password;
-            dbUsers.firstname = updateUser.firstname;
-            dbUsers.lastname = updateUser.lastname;
-            dbUsers.address = updateUser.address;
-            dbUsers.zip = updateUser.zip;
-            dbUsers.usertype = updateUser.usertype;
-
-
-            await _context.SaveChangesAsync();
-            return Ok(await _context.Users.ToListAsync());
+           updateusers.user_id = id;
+           return Ok(await Mediator.Send(new Edit.Command{Users=updateusers}));
         }
-
+        
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            var dbUsers = await _context.Users.FindAsync(id);
-            if (dbUsers == null)
-            {
-                return BadRequest("User not found!");
-            }
-            _context.Users.Remove(dbUsers);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.Users.ToListAsync());
+            return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
     }
 }

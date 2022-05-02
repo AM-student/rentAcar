@@ -1,76 +1,48 @@
-﻿/*using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
+using Application.ContactUs;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using Domain;
-    [Route("api/[controller]")]
-    [ApiController]
-    public class contactUsController : ControllerBase
+using MediatR;
+namespace API.Controllers
+{   
+    
+    public class ContactUsController : BaseApiController
+
     {
-
-        private readonly DataContext _context;
-        public contactUsController(DataContext context)
+ [HttpGet]
+        public async Task<ActionResult<List<Contact>>> GetAllContactus()
         {
-            _context = context;
+            return await Mediator.Send(new List.Query());
         }
-        [HttpGet]
-        public async Task<ActionResult<List<contactus>>> GetAllContactUs()
-        {
-            return Ok(await _context.ContactUss.ToListAsync());
-        }
-
+        
         [HttpGet("{id}")]
-        public async Task<ActionResult<contactus>> GetSingleCu(int id)
+        public async Task<ActionResult<Contact>> GetSingleCu(int id)
         {
-            var dbContactUs = await _context.ContactUss.FindAsync(id);
-            if (dbContactUs == null)
-            {
-                return BadRequest("Cu not found!");
-            }
-            return Ok(dbContactUs);
+            return await Mediator.Send(new Details.Query{Id=id});
         }
-
+        
         [HttpPost]
-        public async Task<ActionResult<contactus>> AddCu(contactus addCu)
-        {
-            _context.ContactUss.Add(addCu);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.ContactUss.ToListAsync());
+        public async Task<IActionResult> AddCu(Contact addCu)
+        {    
+            return Ok(await Mediator.Send(new Create.Command{contactus = addCu}));
         }
-
-        [HttpPut]
-        public async Task<ActionResult<contactus>> UpdateCu(contactus updateCu)
+        
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCu(int id, Contact updateCus)
         {
-            var dbContactUs = await _context.ContactUss.FindAsync(updateCu.cu_id);
-            if (dbContactUs == null)
-            {
-                return BadRequest("Cu not found!");
-            }
-            dbContactUs.name = updateCu.name;
-            dbContactUs.email = updateCu.email;
-            dbContactUs.cutext = updateCu.cutext;
-         
-
-
-            await _context.SaveChangesAsync();
-            return Ok(await _context.ContactUss.ToListAsync());
+           updateCus.cu_id = id;
+           return Ok(await Mediator.Send(new Edit.Command{contactus=updateCus}));
         }
-
+        
         [HttpDelete("{id}")]
-        public async Task<ActionResult<contactus>> DeleteCu(int id)
+        public async Task<IActionResult> DeleteCu(int id)
         {
-            var dbContactUs = await _context.ContactUss.FindAsync(id);
-            if (dbContactUs == null)
-            {
-                return BadRequest("Cu not found!");
-            }
-            _context.ContactUss.Remove(dbContactUs);
-            await _context.SaveChangesAsync();
-            return Ok(await _context.ContactUss.ToListAsync());
+            return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }
     }
 }
-*/
