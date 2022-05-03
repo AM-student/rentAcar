@@ -1,15 +1,21 @@
-import React from "react";
+import { observer } from "mobx-react-lite";
+import React, { SyntheticEvent, useState } from "react";
 import { Button, Item, ItemContent, Segment } from "semantic-ui-react";
 import { User } from "../../../app/models/user";
+import { useUStore } from "../../../app/stores/ustore";
 
-interface Props {
-    users: User[];
-    selectUser: (user_id: number) => void;
-    deleteUser: (user_id: number) => void;
 
-}
+export default observer(function UserList(){
+    
+    const {userStore} = useUStore();
+    const [target, setTarget] =useState('');
 
-export default function UserList({users, selectUser, deleteUser}: Props){
+    const { deleteUser, loading, users } = userStore;
+
+    function handleUserDelete(e: SyntheticEvent<HTMLButtonElement>, user_id: number){
+        setTarget(e.currentTarget.name);
+        deleteUser(user_id);
+    }
 
     return(
         <Segment>
@@ -28,8 +34,13 @@ export default function UserList({users, selectUser, deleteUser}: Props){
                             </div>
                         </Item.Description>
                         <Item.Extra>
-                            <Button onClick={() => selectUser(user.user_id)} floated='right' content='View' color="blue"/>
-                            <Button onClick={() => deleteUser(user.user_id)} floated='right' content='Delete' color="red"/>
+                            <Button onClick={() => userStore.selectUser(user.user_id)} floated='right' content='View' color="blue"/>
+                            <Button 
+                                name={user.user_id}
+                                loading={loading} 
+                                onClick={(e) => handleUserDelete(e, user.user_id)} 
+                                floated='right' content='Delete' color="red"
+                            />
                         </Item.Extra>
                   </Item.Content>
                   </Item>
@@ -38,4 +49,4 @@ export default function UserList({users, selectUser, deleteUser}: Props){
             </Item.Group>
         </Segment>
     )
-}
+})

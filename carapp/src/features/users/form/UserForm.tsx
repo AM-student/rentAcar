@@ -1,15 +1,26 @@
 import React, { ChangeEvent, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
+import { useUStore } from "../../../app/stores/ustore";
 import { User } from "../../../app/models/user";
+import { Userce} from "../../../app/models/userce";
+import { observer } from "mobx-react-lite";
 
-interface Props {
-    user: User  |undefined;
-    closeForm: () => void;
-    createOrEdit:  (user: User) => void
-}
 
-export default function UserForm({user: selectedUser, closeForm, createOrEdit}: Props){
+export default observer(function UserForm(){
 
+    const {userStore} = useUStore();
+    const {selectedUser, selectedUserce,closeForm, createUser, updateUser, loading } = userStore;
+
+    const initialStatece = selectedUserce ?? {
+        username:  '',
+        email:  '',
+        password:  '',
+        firstname:  '',
+        lastname:  '',
+        address:  '',
+        zip:  0,
+        usertype:  '',
+    }
     const initialState = selectedUser ?? {
         user_id: 0,
         username:  '',
@@ -23,19 +34,22 @@ export default function UserForm({user: selectedUser, closeForm, createOrEdit}: 
     }
 
     const [user, setUser] = useState(initialState);
+    const [userce, setUserce] = useState(initialStatece);
 
     function handleSubmit() {
-        createOrEdit(user);
+        user.user_id ? updateUser(user) : createUser(userce);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
         const {name, value} = event.target;
         setUser({...user, [name]:value })
+        setUserce({...userce, [name]:value })
+
     }
 
     return(
-        <Segment clearing>
-            <Form onSubmit={handleSubmit}>
+        <Segment clearing onSubmit={handleSubmit}>
+            <Form>
                 <Form.Input placeholder='Username' value={user.username} name='username' onChange={handleInputChange} />
                 <Form.Input placeholder='Email' value={user.email} name='email' onChange={handleInputChange}/>
                 <Form.Input placeholder='Password' value={user.password} name='password' onChange={handleInputChange}/>
@@ -45,9 +59,9 @@ export default function UserForm({user: selectedUser, closeForm, createOrEdit}: 
                 <Form.Input placeholder='Zip' value={user.zip} name='zip' onChange={handleInputChange}/>
                 <Form.Input placeholder='User Type' value={user.usertype} name='usertype' onChange={handleInputChange}/>
 
-                <Button floated="right" positive type="submit" content='Add' value={user.username} name='username' onChange={handleInputChange} />
+                <Button loading={loading} floated="right" positive type="submit" content='Add' value={user.username} name='username' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated="right" negative type="button" content='Cancel'/>
             </Form>
         </Segment>
     )
-}
+})

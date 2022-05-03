@@ -1,14 +1,16 @@
 import React from "react";
 import { Button, Card, Icon, Image } from "semantic-ui-react";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { User } from "../../../app/models/user";
+import { useUStore } from "../../../app/stores/ustore";
 
-interface Props {
-    users: User;
-    cancelSelectUser: () => void;
-    openForm: (id: number)=> void;
-}
 
-export default function UserDetails({users, cancelSelectUser, openForm }: Props){
+export default function UserDetails(){
+
+  const {userStore} = useUStore();
+  const {selectedUser: users, openForm, cancelSelectedUser, deleteUser} = userStore;
+
+  if(!users) return <LoadingComponent />;
 
     return(
 
@@ -30,8 +32,8 @@ export default function UserDetails({users, cancelSelectUser, openForm }: Props)
         <Card.Content extra>
           <Button.Group widths='3'>
               <Button onClick={() => openForm(users.user_id)}basic color="green" content="Edit"/>          
-              <Button onClick={cancelSelectUser} basic color="yellow" content="Cancel"/>          
-              <Button basic color="red" content="Delete"/>
+              <Button onClick={cancelSelectedUser} basic color="yellow" content="Cancel"/>          
+              <Button onClick={() =>deleteUser(users.user_id)}basic color="red" content="Delete"/>
           </Button.Group>
         </Card.Content>
       </Card>
