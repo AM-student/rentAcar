@@ -1,4 +1,4 @@
-import { action, makeAutoObservable, observable, runInAction } from "mobx"
+import  { makeAutoObservable, runInAction } from "mobx"
 import agent from "../api/agent";
 import { User } from "../models/user";
 import { Userce } from "../models/userce";

@@ -31,7 +31,10 @@ namespace Application.ContactUs
             {
                 var dbCu = await _context.Contactus.FindAsync(request.contactus.cu_id);
                 
-                _mapper.Map(request.contactus, dbCu);
+                dbCu.cu_id = request.contactus.cu_id ; 
+                dbCu.name = request.contactus.name  ?? dbCu.name;
+                dbCu.email = request.contactus.email  ?? dbCu.email;
+                dbCu.cutext = request.contactus.cutext ?? dbCu.cutext;
 
                 await _context.SaveChangesAsync();
                 return Unit.Value;

@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import { Container, Button } from 'semantic-ui-react';
-import { User } from '../models/user';
-import { Userce } from '../models/userce';
 import NavBar from './NavBar';
 import UsersDashboard from '../../features/users/dashboard/UsersDashboard';
-import agent from '../api/agent';
-import LoadingComponent from './LoadingComponent';
-import SalespeopleDashboard from '../../features/salespeople/dashboard/SalespeopleDashboard';
-import { useUStore } from '../stores/ustore';
 import { observer } from 'mobx-react-lite';
+import { Route } from 'react-router-dom';
+import Homepage from '../../features/home/homepage';
+import UserForm from '../../features/users/form/UserForm';
+import ContactForm from '../../features/contactus/form/ContactForm';
+import ContactusDashboard from '../../features/contactus/dashboard/ContactusDashboard';
+import AppWorkers from './AppWorkers';
 
 function App() {
-
-  const{userStore} = useUStore();
-  
-  useEffect(() => {
-      userStore.loadUsers();
-  }, [userStore])
-  
-  if (userStore.loadingInitial) return <LoadingComponent content='Loading APP'/>
 
   return (
     <>
       <NavBar/>
       <Container style={{marginTop:'7em'}}>
-          <UsersDashboard />
+          <Route path='/' component={Homepage} />
+          <Route path='/workers' component={AppWorkers} />
+
+          <Route path='/users' component={UsersDashboard} />
+          <Route path='/createUser' component={UserForm} />
+ 
+          <Route path='/contactus' component={ContactusDashboard} />
+          <Route path='/createContactusForm' component={ContactForm} />
         </Container>
       </>
   );

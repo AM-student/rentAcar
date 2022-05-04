@@ -39,6 +39,45 @@ namespace Persistence.Migrations
                     b.ToTable("Contactus");
                 });
 
+            modelBuilder.Entity("Domain.Manager", b =>
+                {
+                    b.Property<int>("manager_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("atk_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("bankaccount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("firstname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("managertype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("personal_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("zip")
+                        .HasColumnType("int");
+
+                    b.HasKey("manager_id");
+
+                    b.ToTable("Managers");
+                });
+
             modelBuilder.Entity("Domain.Salesperson", b =>
                 {
                     b.Property<int>("sp_id")
@@ -70,6 +109,42 @@ namespace Persistence.Migrations
                     b.HasKey("sp_id");
 
                     b.ToTable("Salespeople");
+                });
+
+            modelBuilder.Entity("Domain.Security", b =>
+                {
+                    b.Property<int>("security_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("atk_id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("bankaccount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("firstname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("lastname")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("personal_id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("securitytype")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("zip")
+                        .HasColumnType("int");
+
+                    b.HasKey("security_id");
+
+                    b.ToTable("Securitys");
                 });
 
             modelBuilder.Entity("Domain.User", b =>

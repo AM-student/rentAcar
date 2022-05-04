@@ -1,17 +1,16 @@
+import { observer } from "mobx-react-lite";
 import React, { ChangeEvent, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
 import { Salesperson } from "../../../app/models/salesperson";
+import { useSPStore } from "../../../app/stores/spstore";
 
-interface Props {
-    salesperson: Salesperson  |undefined;
-    closeForm: () => void;
-    createOrEdit:  (salesperson: Salesperson) => void
-    submitting: boolean;
-}
+export default observer(function SalespersonForm(){
 
-export default function SalespersonForm({salesperson: selectedUser, closeForm, createOrEdit, submitting}: Props){
+    const {salespersonStore} = useSPStore();
+    const {selectedSalespeople, selectedSalespeoplece, updateSalespeople, createSalespeople, loading,closeForm } = salespersonStore;
 
-    const initialState = selectedUser ?? {
+    const initialState = selectedSalespeople ?? {
         sp_id: 0,
         personal_id:  0,
         atk_id:  0,
@@ -22,15 +21,28 @@ export default function SalespersonForm({salesperson: selectedUser, closeForm, c
         zip:  0,
     }
 
-    const [salesperson, setUser] = useState(initialState);
+    const initialStatece = selectedSalespeoplece ?? {
+        personal_id:  0,
+        atk_id:  0,
+        bankaccount:  0,
+        firstname:  '',
+        lastname:  '',
+        address:  '',
+        zip:  0,
+    }
+
+    const [salesperson, setSalesperson] = useState(initialState);
+    const [salespersonce, setSalespersonce] = useState(initialStatece);
 
     function handleSubmit() {
-        createOrEdit(salesperson);
+        salesperson.sp_id ? updateSalespeople(salesperson) : createSalespeople(salespersonce);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
         const {name, value} = event.target;
-        setUser({...salesperson, [name]:value })
+        setSalesperson({...salesperson, [name]:value })
+        setSalespersonce({...salesperson, [name]:value })
+
     }
 
     return(
@@ -44,9 +56,9 @@ export default function SalespersonForm({salesperson: selectedUser, closeForm, c
                 <Form.Input placeholder='Address' value={salesperson.address} name='address' onChange={handleInputChange}/>
                 <Form.Input placeholder='Zip' value={salesperson.zip} name='zip' onChange={handleInputChange}/>
 
-                <Button loading={submitting}floated="right" positive type="submit" content='Add' value={salesperson.personal_id} name='personal_id' onChange={handleInputChange} />
+                <Button loading={loading}floated="right" positive type="submit" content='Add' value={salesperson.personal_id} name='personal_id' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated="right" negative type="button" content='Cancel'/>
             </Form>
         </Segment>
     )
-}
+})

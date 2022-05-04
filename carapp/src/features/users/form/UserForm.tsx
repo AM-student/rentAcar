@@ -1,10 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { useUStore } from "../../../app/stores/ustore";
-import { User } from "../../../app/models/user";
-import { Userce} from "../../../app/models/userce";
 import { observer } from "mobx-react-lite";
-
 
 export default observer(function UserForm(){
 

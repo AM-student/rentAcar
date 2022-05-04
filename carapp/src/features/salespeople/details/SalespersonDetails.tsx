@@ -1,14 +1,19 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import { Button, Card, Icon, Image } from "semantic-ui-react";
-import { Salesperson } from "../../../app/models/salesperson";
+import LoadingComponent from "../../../app/layout/LoadingComponent";
+import { useSPStore } from "../../../app/stores/spstore";
 
-interface Props {
-    salespeople: Salesperson;
-    cancelSelectSalesperson: () => void;
-    openForm: (id: number)=> void;
-}
 
-export default function SalespersonDetails({salespeople, cancelSelectSalesperson, openForm }: Props){
+
+export default observer(function SalespersonDetails(){
+
+  const {salespersonStore} = useSPStore();
+
+  const { cancelSelectedSalespeople, openForm, selectedSalespeople: salespeople } = salespersonStore;
+
+  if(!salespeople) return <LoadingComponent />;
+
 
     return(
 
@@ -30,11 +35,11 @@ export default function SalespersonDetails({salespeople, cancelSelectSalesperson
         <Card.Content extra>
           <Button.Group widths='3'>
               <Button onClick={() => openForm(salespeople.sp_id)}basic color="green" content="Edit"/>          
-              <Button onClick={cancelSelectSalesperson} basic color="yellow" content="Cancel"/>          
+              <Button onClick={cancelSelectedSalespeople} basic color="yellow" content="Cancel"/>          
               <Button basic color="red" content="Delete"/>
           </Button.Group>
         </Card.Content>
       </Card>
 
     )
-}
+})

@@ -14,7 +14,7 @@ namespace Application.Salespeople
     {
         public class Command : IRequest 
         {
-            public Salesperson salespeople { get; set; }
+            public Salesperson Salespeople { get; set; }
 
         }
         public class Handler : IRequestHandler<Command>
@@ -29,10 +29,16 @@ namespace Application.Salespeople
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                var dbSp = await _context.Salespeople.FindAsync(request.salespeople.sp_id);
+                var dbSp = await _context.Salespeople.FindAsync(request.Salespeople.sp_id);
                 
-                _mapper.Map(request.salespeople, dbSp);
-
+                dbSp.personal_id = request.Salespeople.personal_id ;
+                dbSp.atk_id = request.Salespeople.atk_id;
+                dbSp.bankaccount = request.Salespeople.bankaccount;;
+                dbSp.firstname = request.Salespeople.firstname ?? dbSp.firstname;
+                dbSp.lastname = request.Salespeople.lastname ?? dbSp.lastname;
+                dbSp.address = request.Salespeople.address ?? dbSp.address;
+                dbSp.zip = request.Salespeople.zip;
+                
 
                 await _context.SaveChangesAsync();
                 return Unit.Value;

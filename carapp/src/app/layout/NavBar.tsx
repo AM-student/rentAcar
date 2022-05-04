@@ -1,10 +1,7 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { Button, Container, Menu } from 'semantic-ui-react';
 import { useUStore } from '../stores/ustore';
-
-interface Props {
-    openForm : () => void;
-}
 
 export default function NavBar() {
 
@@ -14,17 +11,18 @@ export default function NavBar() {
 
         <Menu inverted fixed='top'>
             <Container>
-             <Menu.Item header>
+             <Menu.Item as={NavLink} to ='/' exact header>
                 Rent a car
             </Menu.Item >
-                <Menu.Item name='Users'/>
+                <Menu.Item as={NavLink} to='/users'name='Users'/>
                 <Menu.Item>
-                    <Button onClick={() =>userStore.openForm()} positive content='Create User'/>
+                    <Button as={NavLink} to='/createUser' positive content='Create User'/>
                 </Menu.Item>
-                <Menu.Item name='Salespeople'/>
+                <Menu.Item as={NavLink} to='/contactus'name='Contactus Forms'/>
                 <Menu.Item>
-                    <Button positive content='Create Salesperson'/>
+                    <Button as={NavLink} to='/createContactusForm' positive content='Create Contactus'/>
                 </Menu.Item>
+                <Menu.Item as={NavLink} to='/workers' name='Workers'/>
             </Container>
         </Menu>
     )

@@ -13,9 +13,12 @@ namespace Persistence
         {
 
         }
-         public DbSet <User> Users { get; set;}
+        public DbSet <User> Users { get; set;}
         public DbSet <Contact> Contactus { get; set;}
-         public DbSet <Salesperson> Salespeople { get; set;}
+        public DbSet <Salesperson> Salespeople { get; set;}
+        public DbSet <Manager> Managers { get; set;}
+        public DbSet <Security> Securitys { get; set;}
+
 
 }
     }

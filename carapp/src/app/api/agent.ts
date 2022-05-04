@@ -1,4 +1,4 @@
-import axios, { AxiosAdapter, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { User } from "../models/user";
 
 const sleep = (delay: number) => {

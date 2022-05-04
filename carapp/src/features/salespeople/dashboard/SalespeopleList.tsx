@@ -1,21 +1,19 @@
+import { observer } from "mobx-react-lite";
 import React, { SyntheticEvent, useState } from "react";
 import { Button, Item, ItemContent, Segment } from "semantic-ui-react";
-import { Salesperson } from "../../../app/models/salesperson";
+import { useSPStore } from "../../../app/stores/spstore";
 
-interface Props {
-    salespeople: Salesperson[];
-    selectSalesperson: (sp_id: number) => void;
-    deleteSalesperson: (sp_id: number) => void;
-    submitting: boolean;
-}
+export default observer(function SalespersonList(){
 
-export default function SalespersonList({salespeople, selectSalesperson, deleteSalesperson, submitting}: Props){
-
+    const {salespersonStore} = useSPStore();
     const [target, setTarget] =useState('');
+
+    const { deleteSalespeople, loading, salespeople } = salespersonStore;
+
 
     function handleSalespersonDelete(e: SyntheticEvent<HTMLButtonElement>, sp_id: number){
         setTarget(e.currentTarget.name);
-        deleteSalesperson(sp_id);
+        deleteSalespeople(sp_id);
     }
 
     return(
@@ -35,10 +33,10 @@ export default function SalespersonList({salespeople, selectSalesperson, deleteS
                             </div>
                         </Item.Description>
                         <Item.Extra>
-                            <Button onClick={() => selectSalesperson(salesperson.sp_id)} floated='right' content='View' color="blue"/>
+                            <Button onClick={() => salespersonStore.selectSalespeople(salesperson.sp_id)} floated='right' content='View' color="blue"/>
                             <Button 
                                 name={salesperson.sp_id}
-                                loading={submitting} 
+                                loading={loading} 
                                 onClick={(e) => handleSalespersonDelete(e, salesperson.sp_id)} 
                                 floated='right' content='Delete' color="red"
                             />
@@ -50,4 +48,4 @@ export default function SalespersonList({salespeople, selectSalesperson, deleteS
             </Item.Group>
         </Segment>
     )
-}
+})

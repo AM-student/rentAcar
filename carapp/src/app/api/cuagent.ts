@@ -1,5 +1,6 @@
-import axios, { AxiosAdapter, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Contact } from "../models/contact";
+import { Contactce } from "../models/contactce";
 
 const sleep = (delay: number) => {
     return new Promise ((resolve) => {
@@ -28,17 +29,17 @@ const requests = {
     del: <T>(url: string) =>axios.delete <T>(url).then(responseBody),
 }
 
-const ContactUs = {
+const Contactus = {
     list: () => requests.get<Contact[]>('/ContactUs'),
     details: (cu_id: number) => requests.get<Contact>(`/ContactUs/${cu_id}`),
-    create: (contact: Contact) => axios.post<void>('/ContactUs', contact),
+    create: (contact: Contactce) => requests.post<void>('/ContactUs', contact),
     update: (contact: Contact) => requests.put<void>(`/ContactUs/${contact.cu_id}`, contact),
     delete: (cu_id: number) => requests.del<void>(`/ContactUs/${cu_id}`),
 
 }
 
 const cuagent ={
-    ContactUs
+    Contactus
 }
 
 export default cuagent;

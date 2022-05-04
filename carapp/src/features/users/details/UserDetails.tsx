@@ -1,9 +1,7 @@
 import React from "react";
 import { Button, Card, Icon, Image } from "semantic-ui-react";
 import LoadingComponent from "../../../app/layout/LoadingComponent";
-import { User } from "../../../app/models/user";
 import { useUStore } from "../../../app/stores/ustore";
-
 
 export default function UserDetails(){
 

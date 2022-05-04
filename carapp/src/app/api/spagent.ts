@@ -1,5 +1,6 @@
-import axios, { AxiosAdapter, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 import { Salesperson } from "../models/salesperson";
+import { Salespersonce } from "../models/salespersonce";
 
 const sleep = (delay: number) => {
     return new Promise ((resolve) => {
@@ -28,17 +29,17 @@ const requests = {
     del: <T>(url: string) =>axios.delete <T>(url).then(responseBody),
 }
 
-const SalesPeople = {
+const Salespeople = {
     list: () => requests.get<Salesperson[]>('/SalesPeople'),
     details: (sp_id: number) => requests.get<Salesperson>(`/SalesPeople/${sp_id}`),
-    create: (salesperson: Salesperson) => axios.post<void>('/SalesPeople', salesperson),
+    create: (salesperson: Salespersonce) => requests.post<void>('/SalesPeople', salesperson),
     update: (salesperson: Salesperson) => requests.put<void>(`/SalesPeople/${salesperson.sp_id}`, salesperson),
     delete: (sp_id: number) => requests.del<void>(`/SalesPeople/${sp_id}`),
 
 }
 
 const spagent ={
-    SalesPeople
+    Salespeople
 }
 
 export default spagent;

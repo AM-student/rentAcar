@@ -35,7 +35,7 @@ namespace API.Controllers
         public async Task<IActionResult> UpdateSp(int id, Salesperson updatesps)
         {
            updatesps.sp_id = id;
-           return Ok(await Mediator.Send(new Edit.Command{salespeople=updatesps}));
+           return Ok(await Mediator.Send(new Edit.Command{Salespeople=updatesps}));
         }
         
         [HttpDelete("{id}")]

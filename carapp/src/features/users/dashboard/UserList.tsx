@@ -1,9 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React, { SyntheticEvent, useState } from "react";
 import { Button, Item, ItemContent, Segment } from "semantic-ui-react";
-import { User } from "../../../app/models/user";
 import { useUStore } from "../../../app/stores/ustore";
-
 
 export default observer(function UserList(){
     
