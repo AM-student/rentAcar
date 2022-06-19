@@ -18,7 +18,9 @@ namespace Persistence
         public DbSet <Salesperson> Salespeople { get; set;}
         public DbSet <Manager> Managers { get; set;}
         public DbSet <Security> Securitys { get; set;}
-
+        public DbSet <Feedback> Feedbacks { get; set;}
+        public DbSet <VWGOLF> VWGolfs { get; set;}
+        public DbSet <VWPassat> VWPassats { get; set;}
 
 }
     }

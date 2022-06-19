@@ -12,6 +12,9 @@ namespace Application.Core
         public MappingProfiles()
         {
             CreateMap<User, User>();
+            CreateMap<VWGOLF, VWGOLF>();
+            CreateMap<VWPassat, VWPassat>();
+            CreateMap<Feedback, Feedback>();
         }
     }
 }
