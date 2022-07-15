@@ -21,6 +21,8 @@ namespace Persistence
         public DbSet <Feedback> Feedbacks { get; set;}
         public DbSet <VWGOLF> VWGolfs { get; set;}
         public DbSet <VWPassat> VWPassats { get; set;}
+        public DbSet <AudiA> AudiAs { get; set; }
+        public DbSet <RollsRoyce> RollsRoyces { get; set; }
 
 }
     }
