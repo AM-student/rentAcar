@@ -10,6 +10,8 @@ import UserForm from '../../features/users/form/UserForm';
 import ContactForm from '../../features/contactus/form/ContactForm';
 import ContactusDashboard from '../../features/contactus/dashboard/ContactusDashboard';
 import AppWorkers from './AppWorkers';
+import AppCostumerService from './AppCostumerService';
+import AppCars from './AppCars';
 
 function App() {
 
@@ -19,12 +21,12 @@ function App() {
       <Container style={{marginTop:'7em'}}>
           <Route path='/' component={Homepage} />
           <Route path='/workers' component={AppWorkers} />
+          <Route path='/costumerservice' component={AppCostumerService} />
+          <Route path='/cars' component={AppCars} />
 
           <Route path='/users' component={UsersDashboard} />
           <Route path='/createUser' component={UserForm} />
  
-          <Route path='/contactus' component={ContactusDashboard} />
-          <Route path='/createContactusForm' component={ContactForm} />
         </Container>
       </>
   );
