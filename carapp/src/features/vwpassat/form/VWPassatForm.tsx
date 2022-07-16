@@ -34,7 +34,7 @@ export default observer(function VWPassatForm(){
     const [vwpassatce, setVWPassatsce] = useState(initialStatece);
 
     function handleSubmit() {
-        vwpassat  ? updateVWPassats(vwpassat) : createVWPassats(vwpassat);
+        vwpassat  ? updateVWPassats(vwpassat) : createVWPassats(vwpassatce);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
@@ -47,7 +47,7 @@ export default observer(function VWPassatForm(){
     return(
         <Segment clearing onSubmit={handleSubmit}>
             <Form>
-                <Form.Input placeholder='ID of VW Passat' value={vwpassat.vwp_targa} name='vwp_id' onChange={handleInputChange} />
+            <Form.Input placeholder='Plates of VW Passat' value={vwpassat.vwp_targa} name='vwp_targa' onChange={handleInputChange} />
                 <Form.Input placeholder='Name of VW Passat' value={vwpassat.vwp_name} name='vwp_name' onChange={handleInputChange} />
                 <Form.Input placeholder='Image of VW Passat' value={vwpassat.vwp_image} name='vwp_image' onChange={handleInputChange}/>
                 <Form.Input placeholder='Type of VW Passat' value={vwpassat.vwp_type} name='vwp_type' onChange={handleInputChange}/>
@@ -56,7 +56,7 @@ export default observer(function VWPassatForm(){
                 <Form.Input placeholder='Price of VW Passat' value={vwpassat.vwp_price} name='vwp_price' onChange={handleInputChange}/>
                 <Form.Input placeholder='Description of VW Passat' value={vwpassat.description_vwp} name='description_vwp' onChange={handleInputChange}/>
 
-                <Button loading={loading} floated="right" positive type="submit" content='Add' value={vwpassat.vwp_id} name='vwp_name' onChange={handleInputChange} />
+                <Button loading={loading} floated="right" positive type="submit" content='Add' value={vwpassat.vwp_name} name='vwp_name' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated="right" negative type="button" content='Cancel'/>
             </Form>
         </Segment>

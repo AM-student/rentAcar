@@ -10,7 +10,7 @@ namespace Persistence.Migrations
                 name: "AudiAs",
                 columns: table => new
                 {
-                    aa_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    aa_id = table.Column<int>(type: "int", nullable: false),
                     aa_image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     aa_name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     aa_type = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -30,7 +30,7 @@ namespace Persistence.Migrations
                 name: "RollsRoyces",
                 columns: table => new
                 {
-                    rr_id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    rr_id = table.Column<int>(type: "int", nullable: false),
                     rr_image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     rr_name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     rr_type = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -49,11 +49,8 @@ namespace Persistence.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "AudiAs");
+          
 
-            migrationBuilder.DropTable(
-                name: "RollsRoyces");
         }
     }
 }

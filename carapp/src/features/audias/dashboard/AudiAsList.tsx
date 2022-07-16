@@ -10,7 +10,7 @@ export default observer(function AudiAList(){
 
     const { deleteAudiAs, loading, audias } = AudiAStore;
 
-    function handleAudiADelete(e: SyntheticEvent<HTMLButtonElement>, aa_id: string){
+    function handleAudiADelete(e: SyntheticEvent<HTMLButtonElement>, aa_id: number){
         setTarget(e.currentTarget.name);
         deleteAudiAs(aa_id);
     }

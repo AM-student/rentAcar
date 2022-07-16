@@ -52,14 +52,14 @@ export default class VWPassatStore{
     closeForm = () => {
         this.editMode = false;
     }
-    createVWPassats = async(vwpassats: VWPassat) => {
+    createVWPassats = async(vwpassatsce: VWPassatce) => {
         this.loading = true;
         try {
-            await vwpagent.VWPassats.create(vwpassats);
+            await vwpagent.VWPassats.create(vwpassatsce);
             runInAction (() =>
             {
-                this.vwpassats.push(vwpassats);
-                this.selectedVWPassatsce = vwpassats;
+                this.vwpassatsce.push(vwpassatsce);
+                this.selectedVWPassatsce = vwpassatsce;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -71,6 +71,7 @@ export default class VWPassatStore{
             })
         }
     }
+
     updateVWPassats = async(vwpassat: VWPassat) => {
         this.loading = true;
         try {

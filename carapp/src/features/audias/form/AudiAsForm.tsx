@@ -20,7 +20,7 @@ export default observer(function AudiAsForm(){
         aa_engine: 0,
     }
     const initialState = selectedAudiAs ?? {
-        aa_id: '',
+        aa_id: 0,
         aa_image: '',
         aa_name: '',
         aa_type: '',

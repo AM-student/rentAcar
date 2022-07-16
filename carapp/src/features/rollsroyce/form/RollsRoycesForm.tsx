@@ -20,7 +20,7 @@ export default observer(function RollsRoycesForm(){
         rr_engine: 0,
     }
     const initialState = selectedRollsRoyces ?? {
-        rr_id: '',
+        rr_id: 0,
         rr_image: '',
         rr_name: '',
         rr_type: '',
@@ -59,6 +59,7 @@ export default observer(function RollsRoycesForm(){
                 <Form.Input placeholder='Description of Rolls Royce' value={rr.description_rr} name='description_rr' onChange={handleInputChange}/>
                 <Form.Input placeholder='Engine of Rolls Royce' value={rr.rr_engine} name='rr_engine' onChange={handleInputChange}/>
                 <Form.Input placeholder='Fuel Type of Rolls Royce' value={rr.rr_fuel} name='rr_fuel' onChange={handleInputChange}/>
+                
                 <Button loading={loading} floated="right" positive type="submit" content='Add' value={rr.rr_name} name='rr_name' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated="right" negative type="button" content='Cancel'/>
             </Form>

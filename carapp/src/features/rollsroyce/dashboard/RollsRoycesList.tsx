@@ -10,7 +10,7 @@ export default observer(function RollsRoyceList(){
 
     const { deleteRollsRoyces, loading, rollsroyces } = RollsRoyceStore;
 
-    function handleRollsRoyceDelete(e: SyntheticEvent<HTMLButtonElement>, rr_id: string){
+    function handleRollsRoyceDelete(e: SyntheticEvent<HTMLButtonElement>, rr_id: number){
         setTarget(e.currentTarget.name);
         deleteRollsRoyces(rr_id);
     }

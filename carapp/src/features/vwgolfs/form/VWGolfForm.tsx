@@ -47,7 +47,6 @@ export default observer(function VWGolfsForm(){
     return(
         <Segment clearing onSubmit={handleSubmit}>
             <Form>
-                <Form.Input placeholder='ID of VW Golf' value={vwgolf.vwg_id} name='vwg_id' onChange={handleInputChange} />
                 <Form.Input placeholder='Plate of VW Golf' value={vwgolf.vwg_targa} name='vwg_targa' onChange={handleInputChange} />
                 <Form.Input placeholder='Name of VW Golf' value={vwgolf.vwg_name} name='vwg_name' onChange={handleInputChange} />
                 <Form.Input placeholder='Image of VW Golf' value={vwgolf.vwg_image} name='vwg_image' onChange={handleInputChange}/>
