@@ -34,7 +34,7 @@ export default observer(function VWPassatForm(){
     const [vwpassatce, setVWPassatsce] = useState(initialStatece);
 
     function handleSubmit() {
-        vwpassat  ? updateVWPassats(vwpassat) : createVWPassats(vwpassatce);
+        vwpassat.vwp_id ? updateVWPassats(vwpassat) : createVWPassats(vwpassatce);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){

@@ -56,7 +56,7 @@ export default observer(function VWGolfsForm(){
                 <Form.Input placeholder='Price of VW Golf' value={vwgolf.vwg_price} name='vwg_price' onChange={handleInputChange}/>
                 <Form.Input placeholder='Description of VW Golf' value={vwgolf.description_vwg} name='description_vwg' onChange={handleInputChange}/>
 
-                <Button loading={loading} floated="right" positive type="submit" content='Add' value={vwgolf.vwg_id} name='vwg_name' onChange={handleInputChange} />
+                <Button loading={loading} floated="right" positive type="submit" content='Add' value={vwgolf.vwg_name} name='vwg_name' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated="right" negative type="button" content='Cancel'/>
             </Form>
         </Segment>
