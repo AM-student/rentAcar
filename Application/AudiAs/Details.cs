@@ -11,9 +11,9 @@ namespace Application.AudiAs
 {
     public class Details
     {
-        public class  Query : IRequest<AA>
+        public class  Query : IRequest<AudiA>
         {
-            public string Id { get; set;}
+            public int Id { get; set;}
         }
 
         public class Handler : IRequestHandler<Query, AudiA>

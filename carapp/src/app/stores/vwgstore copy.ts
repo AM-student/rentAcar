@@ -2,11 +2,11 @@ import { useContext } from "react";
 import { createContext } from "react";
 import VWGolfStore from "./vwGolfStore";
 
-interface VWGStore{
+interface VWGstore{
     VWGolfStore: VWGolfStore
 }
 
-export const vwgstore: VWGStore = {
+export const vwgstore: VWGstore = {
     VWGolfStore: new VWGolfStore()
 }
 

@@ -9,7 +9,7 @@ namespace Domain
     public class AudiA
     {
         [Key]
-        public string aa_id { get; set; }
+        public int aa_id { get; set; }
         public string aa_image { get; set; }
         public string aa_name { get; set; }
         public string aa_type { get; set; }

@@ -1,6 +1,6 @@
 export interface AudiA{
   aa_image: string;
-  aa_id: string;
+  aa_id: number;
   aa_name: string;
   aa_type: string;
   aa_year: number;

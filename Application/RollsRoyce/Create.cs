@@ -13,7 +13,7 @@ namespace Application.RollsRoyces
     {
         public class Command : IRequest
         {
-            public ROLLSROYCE RollsRoyces { get; set; }
+            public RollsRoyce RollsRoyces { get; set; }
         }
          public class Handler : IRequestHandler<Command>
         {

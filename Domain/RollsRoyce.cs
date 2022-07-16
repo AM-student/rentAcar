@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class AudiA
+    public class RollsRoyce
     {
         [Key]
-        public string rr_id { get; set; }
+        public int rr_id { get; set; }
         public string rr_image { get; set; }
         public string rr_name { get; set; }
         public string rr_type { get; set; }

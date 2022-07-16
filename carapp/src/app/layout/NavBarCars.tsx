@@ -19,6 +19,14 @@ export default function NavBar() {
                 <Menu.Item>
                     <Button as={NavLink} to='/cars/createVWPassat' positive content='Create Volkswagen Passat'/>
                 </Menu.Item>
+                <Menu.Item as={NavLink} to='/cars/audia'name='Audi A Serie'/>
+                <Menu.Item>
+                    <Button as={NavLink} to='/cars/createAudiA' positive content='Create Audi A Serie'/>
+                </Menu.Item>
+                <Menu.Item as={NavLink} to='/cars/rollsroyce'name='Rolls Royce'/>
+                <Menu.Item>
+                    <Button as={NavLink} to='/cars/createRollsRoyce' positive content='Create Rolls Royce'/>
+                </Menu.Item>
             </Container>
         </Menu>
     )

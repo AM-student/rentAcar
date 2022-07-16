@@ -11,9 +11,9 @@ namespace Application.RollsRoyces
 {
     public class Details
     {
-        public class  Query : IRequest<RR>
+        public class  Query : IRequest<RollsRoyce>
         {
-            public string Id { get; set;}
+            public int Id { get; set;}
         }
 
         public class Handler : IRequestHandler<Query, RollsRoyce>

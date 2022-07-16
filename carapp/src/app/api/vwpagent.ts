@@ -31,10 +31,10 @@ const requests = {
 
 const VWPassats = {
     list: () => requests.get<VWPassat[]>('/VWPassat'),
-    details: (vwp_id: string) => requests.get<VWPassat>(`/VWPassat/${vwp_id}`),
-    create: (vwpassat: VWPassatce) => requests.post<void>('/VWPassat', vwpassat),
+    details: (vwp_id: number) => requests.get<VWPassat>(`/VWPassat/${vwp_id}`),
+    create: (vwpassat: VWPassat) => requests.post<void>('/VWPassat', vwpassat),
     update: (vwpassat: VWPassat) => requests.put<void>(`/VWPassat/${vwpassat.vwp_id}`, vwpassat),
-    delete: (vwp_id: string) => requests.del<void>(`/VWPassat/${vwp_id}`),
+    delete: (vwp_id: number) => requests.del<void>(`/VWPassat/${vwp_id}`),
 
 }
 

@@ -20,7 +20,7 @@ namespace API.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<AudiA>> GetSingleAudiA(string id)
+        public async Task<ActionResult<AudiA>> GetSingleAudiA(int id)
         {
             return await Mediator.Send(new Details.Query{Id=id});
         }
@@ -32,14 +32,14 @@ namespace API.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAA(string id, AudiA updateAA)
+        public async Task<IActionResult> UpdateAA(int id, AudiA updateAA)
         {
            updateAA.aa_id = id;
            return Ok(await Mediator.Send(new Edit.Command{AudiAs=updateAA}));
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAA(string id)
+        public async Task<IActionResult> DeleteAA(int id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }

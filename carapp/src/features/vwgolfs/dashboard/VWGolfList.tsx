@@ -8,11 +8,11 @@ export default observer(function VWGolfList(){
     const {VWGolfStore} = useVWGStore();
     const [target, setTarget] =useState('');
 
-    const { deleteVWGolfs, loading, vwgolfs } = VWGolfStore;
+    const { deleteVWGolf, loading, vwgolfs } = VWGolfStore;
 
-    function handleVWGolfDelete(e: SyntheticEvent<HTMLButtonElement>, vwg_id: string){
+    function handleVWGolfDelete(e: SyntheticEvent<HTMLButtonElement>, vwg_id: number){
         setTarget(e.currentTarget.name);
-        deleteVWGolfs(vwg_id);
+        deleteVWGolf(vwg_id);
     }
 
     return(
@@ -33,7 +33,7 @@ export default observer(function VWGolfList(){
                             </div>
                         </Item.Description>
                         <Item.Extra>
-                            <Button onClick={() => VWGolfStore.selectVWGolfs(vwgolfs.vwg_id)} floated='right' content='View' color="blue"/>
+                            <Button onClick={() => VWGolfStore.selectVWGolf(vwgolfs.vwg_id)} floated='right' content='View' color="blue"/>
                             <Button 
                                 name={vwgolfs.vwg_id}
                                 loading={loading} 

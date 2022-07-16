@@ -13,7 +13,7 @@ namespace Application.VWGolfs
     {
         public class  Query : IRequest<VWGOLF>
         {
-            public string Id { get; set;}
+            public int Id { get; set;}
         }
 
         public class Handler : IRequestHandler<Query, VWGOLF>

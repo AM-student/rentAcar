@@ -13,7 +13,7 @@ namespace Application.VWPassats
     {
         public class  Query : IRequest<VWPassat>
         {
-            public string Id { get; set;}
+            public int Id { get; set;}
         }
 
         public class Handler : IRequestHandler<Query, VWPassat>

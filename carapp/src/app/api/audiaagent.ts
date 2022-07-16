@@ -31,10 +31,10 @@ const requests = {
 
 const AudiAs = {
     list: () => requests.get<AudiA[]>('/AudiA'),
-    details: (aa_id: string) => requests.get<AudiA>(`/AudiA/${aa_id}`),
+    details: (aa_id: number) => requests.get<AudiA>(`/AudiA/${aa_id}`),
     create: (audia: AudiAce) => requests.post<void>('/AudiA', audia),
     update: (audia: AudiA) => requests.put<void>(`/AudiA/${audia.aa_id}`, audia),
-    delete: (aa_id: string) => requests.del<void>(`/AudiA/${aa_id}`),
+    delete: (aa_id: number) => requests.del<void>(`/AudiA/${aa_id}`),
 
 }
 

@@ -31,10 +31,10 @@ const requests = {
 
 const RollsRoyces = {
     list: () => requests.get<RollsRoyce[]>('/RollsRoyce'),
-    details: (rr_id: string) => requests.get<RollsRoyce>(`/RollsRoyce/${rr_id}`),
+    details: (rr_id: number) => requests.get<RollsRoyce>(`/RollsRoyce/${rr_id}`),
     create: (rollsroyce: RollsRoyceSe) => requests.post<void>('/RollsRoyce', rollsroyce),
     update: (rollsroyce: RollsRoyce) => requests.put<void>(`/RollsRoyce/${rollsroyce.rr_id}`, rollsroyce),
-    delete: (rr_id: string) => requests.del<void>(`/RollsRoyce/${rr_id}`),
+    delete: (rr_id: number) => requests.del<void>(`/RollsRoyce/${rr_id}`),
 
 }
 

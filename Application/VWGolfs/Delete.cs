@@ -14,7 +14,7 @@ namespace Application.VWGolfs
     {
         public class Command : IRequest 
         {
-            public string Id { get; set;}
+            public int Id { get; set;}
         }
 
         public class Handler : IRequestHandler<Command>

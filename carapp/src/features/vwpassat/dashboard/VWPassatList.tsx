@@ -10,7 +10,7 @@ export default observer(function VWPassatList(){
 
     const { deleteVWPassats, loading, vwpassats } = VWPassatStore;
 
-    function handleVWPassatDelete(e: SyntheticEvent<HTMLButtonElement>, vwp_id: string){
+    function handleVWPassatDelete(e: SyntheticEvent<HTMLButtonElement>, vwp_id: number){
         setTarget(e.currentTarget.name);
         deleteVWPassats(vwp_id);
     }
@@ -19,25 +19,25 @@ export default observer(function VWPassatList(){
         <Segment>
             <Item.Group divided>
             {
-                 vwpassats.map((vwpassats) => (
-                  <Item key={vwpassats.vwp_id}>
+                 vwpassats.map((vwpassat) => (
+                  <Item key={vwpassat.vwp_id}>
                       <Item.Content>
-                        <Item.Header as='a'>VWPassat ID: {vwpassats.vwp_id}</Item.Header>
-                        <Item.Meta>Name:{vwpassats.vwp_name}</Item.Meta>
+                        <Item.Header as='a'>VWPassat ID: {vwpassat.vwp_id}</Item.Header>
+                        <Item.Meta>Name:{vwpassat.vwp_name}</Item.Meta>
                         <Item.Description>
                             <div>
-                                Year: {vwpassats.vwp_year}<br/>
-                                VIN: {vwpassats.vwp_vin}<br/>
-                                Price when bought: {vwpassats.vwp_price}<br/>
-                                Description: {vwpassats.description_vwp}
+                                Year: {vwpassat.vwp_year}<br/>
+                                VIN: {vwpassat.vwp_vin}<br/>
+                                Price when bought: {vwpassat.vwp_price}<br/>
+                                Description: {vwpassat.description_vwp}
                             </div>
                         </Item.Description>
                         <Item.Extra>
-                            <Button onClick={() => VWPassatStore.selectVWPassats(vwpassats.vwp_id)} floated='right' content='View' color="blue"/>
+                            <Button onClick={() => VWPassatStore.selectVWPassats(vwpassat.vwp_id)} floated='right' content='View' color="blue"/>
                             <Button 
-                                name={vwpassats.vwp_id}
+                                name={vwpassat.vwp_id}
                                 loading={loading} 
-                                onClick={(e) => handleVWPassatDelete(e, vwpassats.vwp_id)} 
+                                onClick={(e) => handleVWPassatDelete(e, vwpassat.vwp_id)} 
                                 floated='right' content='Delete' color="red"
                             />
                         </Item.Extra>

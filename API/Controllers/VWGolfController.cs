@@ -20,7 +20,7 @@ namespace API.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<VWGOLF>> GetSingleVWGolf(string id)
+        public async Task<ActionResult<VWGOLF>> GetSingleVWGolf(int id)
         {
             return await Mediator.Send(new Details.Query{Id=id});
         }
@@ -32,14 +32,14 @@ namespace API.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVWG(string id, VWGOLF updatevwg)
+        public async Task<IActionResult> UpdateVWG(int id, VWGOLF updatevwg)
         {
            updatevwg.vwg_id = id;
            return Ok(await Mediator.Send(new Edit.Command{VWGolfs=updatevwg}));
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVWG(string id)
+        public async Task<IActionResult> DeleteVWG(int id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }

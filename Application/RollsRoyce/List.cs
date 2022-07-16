@@ -12,7 +12,7 @@ namespace Application.RollsRoyces
 {
     public class List
     {
-        public class Query : IRequest<List<RollsRoyce>{}
+        public class Query : IRequest<List<RollsRoyce>>{}
 
         public class Handler : IRequestHandler<Query, List<RollsRoyce>>
         {

@@ -1,4 +1,4 @@
-import { makeAutoObservable, runInAction } from "mobx"
+import  { makeAutoObservable, runInAction } from "mobx"
 import vwgagent from "../api/vwgagent";
 import { VWGolf } from "../models/vwgolf";
 import { VWGolfce } from "../models/vwgolfce";
@@ -7,10 +7,10 @@ import { VWGolfce } from "../models/vwgolfce";
 export default class VWGolfStore{
 
     vwgolfs: VWGolf[] = [];
-    vwgolfsRegistry = new Map<string, VWGolf>();
+    vwgolfsRegistry = new Map<number, VWGolf>();
     vwgolfsce: VWGolfce[] = [];
-    selectedVWGolfs: VWGolf | undefined = undefined ;
-    selectedVWGolfsce: VWGolfce | undefined = undefined ;
+    selectedVWGolf: VWGolf | undefined = undefined ;
+    selectedVWGolfce: VWGolfce | undefined = undefined ;
 
     editMode = false;
     loading = false;
@@ -39,27 +39,27 @@ export default class VWGolfStore{
     setLoadingInitial = (state: boolean) =>{
         this.loadingInitial = state
     }
-    selectVWGolfs = (vwg_id: string) => {
-        this.selectedVWGolfs = this.vwgolfsRegistry.get(vwg_id);
+    selectVWGolf = (vwg_id: number) => {
+        this.selectedVWGolf = this.vwgolfsRegistry.get(vwg_id);
     }
-    cancelSelectedVWGolfs = () => {
-        this.selectedVWGolfs = undefined;
+    cancelSelectedVWGolf = () => {
+        this.selectedVWGolf = undefined;
     }
-    openForm = (vwg_id?: string) => {
-        vwg_id ? this.selectVWGolfs(vwg_id) :this.cancelSelectedVWGolfs();
+    openForm = (vwg_id?: number) => {
+        vwg_id ? this.selectVWGolf(vwg_id) :this.cancelSelectedVWGolf();
         this.editMode = true;
     }
     closeForm = () => {
         this.editMode = false;
     }
-    createVWGolfs = async(vwgolfce: VWGolfce) => {
+    createVWGolf = async(vwgolfce: VWGolfce) => {
         this.loading = true;
         try {
             await vwgagent.VWGolfs.create(vwgolfce);
             runInAction (() =>
             {
                 this.vwgolfsce.push(vwgolfce);
-                this.selectedVWGolfsce = vwgolfce;
+                this.selectedVWGolfce = vwgolfce;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -71,14 +71,14 @@ export default class VWGolfStore{
             })
         }
     }
-    updateVWGolfs = async(vwgolf: VWGolf) => {
+    updateVWGolf = async(vwgolf: VWGolf) => {
         this.loading = true;
         try {
             await vwgagent.VWGolfs.update(vwgolf);
             runInAction (() =>
             {
                 this.vwgolfsRegistry.set(vwgolf.vwg_id, vwgolf);
-                this.selectedVWGolfs = vwgolf;
+                this.selectedVWGolf = vwgolf;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -90,14 +90,14 @@ export default class VWGolfStore{
             })
         }
     }
-    deleteVWGolfs = async(vwg_id: string) => {
+    deleteVWGolf = async(vwg_id: number) => {
         this.loading = true;
         try {
             await vwgagent.VWGolfs.delete(vwg_id);
             runInAction (() =>
             {
                 this.vwgolfsRegistry.delete(vwg_id)
-                if(this.selectedVWGolfs?.vwg_id === vwg_id) this.cancelSelectedVWGolfs();
+                if(this.selectedVWGolf?.vwg_id === vwg_id) this.cancelSelectedVWGolf();
                 this.editMode=false;
                 this.loading=false;
             })

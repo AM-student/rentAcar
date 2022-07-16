@@ -7,7 +7,7 @@ import { VWPassatce } from "../models/vwpassatce";
 export default class VWPassatStore{
 
     vwpassats: VWPassat[] = [];
-    vwpassatsRegistry = new Map<string, VWPassat>();
+    vwpassatsRegistry = new Map<number, VWPassat>();
     vwpassatsce: VWPassatce[] = [];
     selectedVWPassats: VWPassat | undefined = undefined ;
     selectedVWPassatsce: VWPassatce | undefined = undefined ;
@@ -39,27 +39,27 @@ export default class VWPassatStore{
     setLoadingInitial = (state: boolean) =>{
         this.loadingInitial = state
     }
-    selectVWPassats = (vwp_id: string) => {
+    selectVWPassats = (vwp_id: number) => {
         this.selectedVWPassats = this.vwpassatsRegistry.get(vwp_id);
     }
     cancelSelectedVWPassats = () => {
         this.selectedVWPassats = undefined;
     }
-    openForm = (vwp_id?: string) => {
+    openForm = (vwp_id?: number) => {
         vwp_id ? this.selectVWPassats(vwp_id) :this.cancelSelectedVWPassats();
         this.editMode = true;
     }
     closeForm = () => {
         this.editMode = false;
     }
-    createVWPassats = async(vwpassatce: VWPassatce) => {
+    createVWPassats = async(vwpassats: VWPassat) => {
         this.loading = true;
         try {
-            await vwpagent.VWPassats.create(vwpassatce);
+            await vwpagent.VWPassats.create(vwpassats);
             runInAction (() =>
             {
-                this.vwpassatsce.push(vwpassatce);
-                this.selectedVWPassatsce = vwpassatce;
+                this.vwpassats.push(vwpassats);
+                this.selectedVWPassatsce = vwpassats;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -90,7 +90,7 @@ export default class VWPassatStore{
             })
         }
     }
-    deleteVWPassats = async(vwp_id: string) => {
+    deleteVWPassats = async(vwp_id: number) => {
         this.loading = true;
         try {
             await vwpagent.VWPassats.delete(vwp_id);

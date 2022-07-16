@@ -13,7 +13,7 @@ namespace Application.AudiAs
     {
         public class Command : IRequest
         {
-            public AUDI AudiAs { get; set; }
+            public AudiA AudiAs { get; set; }
         }
          public class Handler : IRequestHandler<Command>
         {

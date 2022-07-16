@@ -20,7 +20,7 @@ namespace API.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<VWPassat>> GetSingleVWPassat(string id)
+        public async Task<ActionResult<VWPassat>> GetSingleVWPassat(int id)
         {
             return await Mediator.Send(new Details.Query{Id=id});
         }
@@ -32,14 +32,14 @@ namespace API.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVWG(string id, VWPassat updatevwp)
+        public async Task<IActionResult> UpdateVWG(int id, VWPassat updatevwp)
         {
            updatevwp.vwp_id = id;
            return Ok(await Mediator.Send(new Edit.Command{VWPassats = updatevwp}));
         } 
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteVWG(string id)
+        public async Task<IActionResult> DeleteVWG(int id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }

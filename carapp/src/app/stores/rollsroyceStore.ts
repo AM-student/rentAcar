@@ -7,7 +7,7 @@ import { RollsRoyceSe } from "../models/rollsroycese";
 export default class RRStore{
 
     rollsroyces: RollsRoyce[] = [];
-    rollsroycesRegistry = new Map<string, RollsRoyce>();
+    rollsroycesRegistry = new Map<number, RollsRoyce>();
     rollsroycesse: RollsRoyceSe[] = [];
     selectedRollsRoyces: RollsRoyce | undefined = undefined ;
     selectedRollsRoycesce: RollsRoyceSe | undefined = undefined ;
@@ -39,13 +39,13 @@ export default class RRStore{
     setLoadingInitial = (state: boolean) =>{
         this.loadingInitial = state
     }
-    selectRollsRoyces = (rr_id: string) => {
+    selectRollsRoyces = (rr_id: number) => {
         this.selectedRollsRoyces = this.rollsroycesRegistry.get(rr_id);
     }
     cancelSelectedRollsRoyces = () => {
         this.selectedRollsRoyces = undefined;
     }
-    openForm = (rr_id?: string) => {
+    openForm = (rr_id?: number) => {
         rr_id ? this.selectRollsRoyces(rr_id) :this.cancelSelectedRollsRoyces();
         this.editMode = true;
     }
@@ -90,7 +90,7 @@ export default class RRStore{
             })
         }
     }
-    deleteRollsRoyces = async(rollsroyce_id: string) => {
+    deleteRollsRoyces = async(rollsroyce_id: number) => {
         this.loading = true;
         try {
             await rollsroyceagent.RollsRoyces.delete(rollsroyce_id);

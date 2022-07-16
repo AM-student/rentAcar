@@ -6,9 +6,10 @@ import { observer } from "mobx-react-lite";
 export default observer(function VWGolfsForm(){
 
     const {VWGolfStore} = useVWGStore();
-    const {selectedVWGolfs, selectedVWGolfsce,closeForm, createVWGolfs, updateVWGolfs, loading } = VWGolfStore;
+    const {selectedVWGolf, selectedVWGolfce,closeForm, createVWGolf, updateVWGolf, loading } = VWGolfStore;
 
-    const initialStatece = selectedVWGolfsce ?? {
+    const initialStatece = selectedVWGolfce ?? {
+        vwg_targa:'',
         vwg_image: '',
         vwg_name: '',
         vwg_type: '',
@@ -17,8 +18,9 @@ export default observer(function VWGolfsForm(){
         vwg_price: 0,
         description_vwg: '',
     }
-    const initialState = selectedVWGolfs ?? {
-        vwg_id: '',
+    const initialState = selectedVWGolf ?? {
+        vwg_id: 0,
+        vwg_targa:'',
         vwg_image: '',
         vwg_name: '',
         vwg_type: '',
@@ -28,33 +30,34 @@ export default observer(function VWGolfsForm(){
         description_vwg: '',
     }
 
-    const [vwg, setVWGolfs] = useState(initialState);
-    const [vwgce, setVWGolfsce] = useState(initialStatece);
+    const [vwgolf, setVWGolfs] = useState(initialState);
+    const [vwgolfce, setVWGolfsce] = useState(initialStatece);
 
     function handleSubmit() {
-        vwg.vwg_id ? updateVWGolfs(vwg) : createVWGolfs(vwgce);
+        vwgolf.vwg_id ? updateVWGolf(vwgolf) : createVWGolf(vwgolfce);
     }
     
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
         const {name, value} = event.target;
-        setVWGolfs({...vwg, [name]:value })
-        setVWGolfsce({...vwgce, [name]:value })
+        setVWGolfs({...vwgolf, [name]:value })
+        setVWGolfsce({...vwgolfce, [name]:value })
 
     }
 
     return(
         <Segment clearing onSubmit={handleSubmit}>
             <Form>
-                <Form.Input placeholder='ID of VW Golf' value={vwg.vwg_id} name='vwg_id' onChange={handleInputChange} />
-                <Form.Input placeholder='Name of VW Golf' value={vwg.vwg_name} name='vwg_name' onChange={handleInputChange} />
-                <Form.Input placeholder='Image of VW Golf' value={vwg.vwg_image} name='vwg_image' onChange={handleInputChange}/>
-                <Form.Input placeholder='Type of VW Golf' value={vwg.vwg_type} name='wg_type' onChange={handleInputChange}/>
-                <Form.Input placeholder='Year of VW Golf ' value={vwg.vwg_year} name='wg_year' onChange={handleInputChange}/>
-                <Form.Input placeholder='VIN of VW Golf ' value={vwg.vwg_vin} name='wg_vin' onChange={handleInputChange}/>
-                <Form.Input placeholder='Price of VW Golf' value={vwg.vwg_price} name='wg_price' onChange={handleInputChange}/>
-                <Form.Input placeholder='Description of VW Golf' value={vwg.description_vwg} name='description_vwg' onChange={handleInputChange}/>
+                <Form.Input placeholder='ID of VW Golf' value={vwgolf.vwg_id} name='vwg_id' onChange={handleInputChange} />
+                <Form.Input placeholder='Plate of VW Golf' value={vwgolf.vwg_targa} name='vwg_targa' onChange={handleInputChange} />
+                <Form.Input placeholder='Name of VW Golf' value={vwgolf.vwg_name} name='vwg_name' onChange={handleInputChange} />
+                <Form.Input placeholder='Image of VW Golf' value={vwgolf.vwg_image} name='vwg_image' onChange={handleInputChange}/>
+                <Form.Input placeholder='Type of VW Golf' value={vwgolf.vwg_type} name='vwg_type' onChange={handleInputChange}/>
+                <Form.Input placeholder='Year of VW Golf ' value={vwgolf.vwg_year} name='vwg_year' onChange={handleInputChange}/>
+                <Form.Input placeholder='VIN of VW Golf ' value={vwgolf.vwg_vin} name='vwg_vin' onChange={handleInputChange}/>
+                <Form.Input placeholder='Price of VW Golf' value={vwgolf.vwg_price} name='vwg_price' onChange={handleInputChange}/>
+                <Form.Input placeholder='Description of VW Golf' value={vwgolf.description_vwg} name='description_vwg' onChange={handleInputChange}/>
 
-                <Button loading={loading} floated="right" positive type="submit" content='Add' value={vwg.vwg_name} name='vwg_name' onChange={handleInputChange} />
+                <Button loading={loading} floated="right" positive type="submit" content='Add' value={vwgolf.vwg_id} name='vwg_name' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated="right" negative type="button" content='Cancel'/>
             </Form>
         </Segment>

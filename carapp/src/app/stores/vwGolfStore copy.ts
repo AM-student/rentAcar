@@ -1,16 +1,16 @@
 import { makeAutoObservable, runInAction } from "mobx"
-import aaagent from "../api/audiaagent";
-import { AudiA } from "../models/audia";
-import { AudiAce } from "../models/audiace";
+import vwgagent from "../api/vwgagent";
+import { VWGolf } from "../models/vwgolf";
+import { VWGolfce } from "../models/vwgolfce";
 
 
-export default class AAStore{
+export default class VWGolfStore{
 
-    audias: AudiA[] = [];
-    audiasRegistry = new Map<number, AudiA>();
-    audiasce: AudiAce[] = [];
-    selectedAudiAs: AudiA | undefined = undefined ;
-    selectedAudiAsce: AudiAce | undefined = undefined ;
+    vwgolfs: VWGolf[] = [];
+    vwgolfsRegistry = new Map<string, VWGolf>();
+    vwgolfsce: VWGolfce[] = [];
+    selectedVWGolfs: VWGolf | undefined = undefined ;
+    selectedVWGolfsce: VWGolfce | undefined = undefined ;
 
     editMode = false;
     loading = false;
@@ -20,13 +20,12 @@ export default class AAStore{
         makeAutoObservable(this)
     }
 
-    loadAudiAs = async () =>{
+    loadVWGolfs = async () =>{
         this.setLoadingInitial(true);
         try {
-            const audias = await aaagent.AudiAs.list();
-            audias.forEach((audia: AudiA)=>{
-                this.audias.push(audia);
-                this.audiasRegistry.set(audia.aa_id, audia);
+            const vwgolfs = await vwgagent.VWGolfs.list();
+            vwgolfs.forEach((vwgolf: VWGolf)=>{
+                this.vwgolfs.push(vwgolf);
             })
             this.setLoadingInitial(false);
         }
@@ -39,27 +38,27 @@ export default class AAStore{
     setLoadingInitial = (state: boolean) =>{
         this.loadingInitial = state
     }
-    selectAudiAs = (aa_id: number) => {
-        this.selectedAudiAs = this.audiasRegistry.get(aa_id);
+    selectVWGolfs = (vwg_id: string) => {
+        this.selectedVWGolfs = this.vwgolfsRegistry.get(vwg_id);
     }
-    cancelSelectedAudiAs = () => {
-        this.selectedAudiAs = undefined;
+    cancelSelectedVWGolfs = () => {
+        this.selectedVWGolfs = undefined;
     }
-    openForm = (aa_id?: number) => {
-        aa_id ? this.selectAudiAs(aa_id) :this.cancelSelectedAudiAs();
+    openForm = (vwg_id?: string) => {
+        vwg_id ? this.selectVWGolfs(vwg_id) :this.cancelSelectedVWGolfs();
         this.editMode = true;
     }
     closeForm = () => {
         this.editMode = false;
     }
-    createAudiAs = async(audiace: AudiAce) => {
+    createVWGolfs = async(vwgolfce: VWGolfce) => {
         this.loading = true;
         try {
-            await aaagent.AudiAs.create(audiace);
+            await vwgagent.VWGolfs.create(vwgolfce);
             runInAction (() =>
             {
-                this.audiasce.push(audiace);
-                this.selectedAudiAsce = audiace;
+                this.vwgolfsce.push(vwgolfce);
+                this.selectedVWGolfsce = vwgolfce;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -71,14 +70,13 @@ export default class AAStore{
             })
         }
     }
-    updateAudiAs = async(audia: AudiA) => {
+    updateVWGolfs = async(vwgolf: VWGolf) => {
         this.loading = true;
         try {
-            await aaagent.AudiAs.update(audia);
+            await vwgagent.VWGolfs.update(vwgolf);
             runInAction (() =>
             {
-                this.audiasRegistry.set(audia.aa_id, audia);
-                this.selectedAudiAs = audia;
+                this.selectedVWGolfs = vwgolf;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -90,14 +88,12 @@ export default class AAStore{
             })
         }
     }
-    deleteAudiAs = async(aa_id: number) => {
+    deleteVWGolfs = async(vwg_id: string) => {
         this.loading = true;
         try {
-            await aaagent.AudiAs.delete(aa_id);
             runInAction (() =>
             {
-                this.audiasRegistry.delete(aa_id)
-                if(this.selectedAudiAs?.aa_id === aa_id) this.cancelSelectedAudiAs();
+                this.vwgolfsRegistry.delete(vwg_id)
                 this.editMode=false;
                 this.loading=false;
             })

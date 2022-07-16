@@ -1,5 +1,6 @@
 export interface VWGolf {
-  vwg_id: string;
+  vwg_id: number;
+  vwg_targa: string;
   vwg_image: string;
   vwg_name: string;
   vwg_type: string;

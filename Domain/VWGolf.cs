@@ -9,7 +9,8 @@ namespace Domain
     public class VWGOLF
     {
         [Key]
-        public string vwg_id { get; set; }
+        public int vwg_id { get; set; }
+        public string vwg_targa { get; set; }
         public string vwg_image { get; set; }
         public string vwg_name { get; set; }
         public string vwg_type { get; set; }

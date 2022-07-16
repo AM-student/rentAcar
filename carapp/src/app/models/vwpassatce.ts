@@ -1,4 +1,5 @@
 export interface VWPassatce {
+  vwp_targa: string;
   vwp_image: string;
   vwp_name: string;
   vwp_type: string;

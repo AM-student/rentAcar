@@ -1,5 +1,6 @@
 export interface VWPassat{
-  vwp_id: string;
+  vwp_id: number;
+  vwp_targa: string;
   vwp_image: string;
   vwp_name: string;
   vwp_type: string;

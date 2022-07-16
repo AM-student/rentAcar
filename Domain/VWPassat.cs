@@ -9,7 +9,8 @@ namespace Domain
     public class VWPassat
     {
         [Key]
-        public string vwp_id { get; set; }
+        public int vwp_id { get; set; }
+        public string vwg_targa { get; set; }
         public string vwp_image { get; set; }
         public string vwp_name { get; set; }
         public string vwp_type { get; set; }

@@ -20,7 +20,7 @@ namespace API.Controllers
         }
         
         [HttpGet("{id}")]
-        public async Task<ActionResult<RollsRoyce>> GetSingleRollsRoyce(string id)
+        public async Task<ActionResult<RollsRoyce>> GetSingleRollsRoyce(int id)
         {
             return await Mediator.Send(new Details.Query{Id=id});
         }
@@ -32,14 +32,14 @@ namespace API.Controllers
         }
         
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRR(string id, RollsRoyce updateRR)
+        public async Task<IActionResult> UpdateRR(int id, RollsRoyce updateRR)
         {
            updateRR.rr_id = id;
            return Ok(await Mediator.Send(new Edit.Command{RollsRoyces=updateRR}));
         }
         
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRR(string id)
+        public async Task<IActionResult> DeleteRR(int id)
         {
             return Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }

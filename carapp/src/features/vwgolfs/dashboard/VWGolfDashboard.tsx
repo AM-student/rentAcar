@@ -10,7 +10,7 @@ import VWGolfsList from "./VWGolfList";
 export default observer(function VWGolfsDashboard() {
 
     const {VWGolfStore} = useVWGStore();
-    const {selectedVWGolfs, editMode } = VWGolfStore;
+    const {selectedVWGolf, editMode } = VWGolfStore;
 
     useEffect(() => {
         VWGolfStore.loadVWGolfs();
@@ -24,7 +24,7 @@ export default observer(function VWGolfsDashboard() {
                 <VWGolfsList />
             </Grid.Column>
             <Grid.Column width='6'>
-                {selectedVWGolfs && !editMode &&
+                {selectedVWGolf && !editMode &&
                 <VWGolfsDetails /> }
                 {editMode &&
                 <VWGolfsForm />}

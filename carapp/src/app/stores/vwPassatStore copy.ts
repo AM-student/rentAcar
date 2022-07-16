@@ -1,16 +1,16 @@
 import { makeAutoObservable, runInAction } from "mobx"
-import aaagent from "../api/audiaagent";
-import { AudiA } from "../models/audia";
-import { AudiAce } from "../models/audiace";
+import vwpagent from "../api/vwpagent";
+import { VWPassat } from "../models/vwpassat";
+import { VWPassatce } from "../models/vwpassatce";
 
 
-export default class AAStore{
+export default class VWPassatStore{
 
-    audias: AudiA[] = [];
-    audiasRegistry = new Map<number, AudiA>();
-    audiasce: AudiAce[] = [];
-    selectedAudiAs: AudiA | undefined = undefined ;
-    selectedAudiAsce: AudiAce | undefined = undefined ;
+    vwpassats: VWPassat[] = [];
+    vwpassatsRegistry = new Map<string, VWPassat>();
+    vwpassatsce: VWPassatce[] = [];
+    selectedVWPassats: VWPassat | undefined = undefined ;
+    selectedVWPassatsce: VWPassatce | undefined = undefined ;
 
     editMode = false;
     loading = false;
@@ -20,13 +20,12 @@ export default class AAStore{
         makeAutoObservable(this)
     }
 
-    loadAudiAs = async () =>{
+    loadVWPassats = async () =>{
         this.setLoadingInitial(true);
         try {
-            const audias = await aaagent.AudiAs.list();
-            audias.forEach((audia: AudiA)=>{
-                this.audias.push(audia);
-                this.audiasRegistry.set(audia.aa_id, audia);
+            const vwpassats = await vwpagent.VWPassats.list();
+            vwpassats.forEach((vwpassat: VWPassat)=>{
+                this.vwpassats.push(vwpassat);
             })
             this.setLoadingInitial(false);
         }
@@ -39,27 +38,27 @@ export default class AAStore{
     setLoadingInitial = (state: boolean) =>{
         this.loadingInitial = state
     }
-    selectAudiAs = (aa_id: number) => {
-        this.selectedAudiAs = this.audiasRegistry.get(aa_id);
+    selectVWPassats = (vwp_id: string) => {
+        this.selectedVWPassats = this.vwpassatsRegistry.get(vwp_id);
     }
-    cancelSelectedAudiAs = () => {
-        this.selectedAudiAs = undefined;
+    cancelSelectedVWPassats = () => {
+        this.selectedVWPassats = undefined;
     }
-    openForm = (aa_id?: number) => {
-        aa_id ? this.selectAudiAs(aa_id) :this.cancelSelectedAudiAs();
+    openForm = (vwp_id?: string) => {
+        vwp_id ? this.selectVWPassats(vwp_id) :this.cancelSelectedVWPassats();
         this.editMode = true;
     }
     closeForm = () => {
         this.editMode = false;
     }
-    createAudiAs = async(audiace: AudiAce) => {
+    createVWPassats = async(vwpassats: VWPassat) => {
         this.loading = true;
         try {
-            await aaagent.AudiAs.create(audiace);
+            await vwpagent.VWPassats.create(vwpassats);
             runInAction (() =>
             {
-                this.audiasce.push(audiace);
-                this.selectedAudiAsce = audiace;
+                this.vwpassats.push(vwpassats);
+                this.selectedVWPassatsce = vwpassats;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -71,14 +70,13 @@ export default class AAStore{
             })
         }
     }
-    updateAudiAs = async(audia: AudiA) => {
+    updateVWPassats = async(vwpassat: VWPassat) => {
         this.loading = true;
         try {
-            await aaagent.AudiAs.update(audia);
+            await vwpagent.VWPassats.update(vwpassat);
             runInAction (() =>
             {
-                this.audiasRegistry.set(audia.aa_id, audia);
-                this.selectedAudiAs = audia;
+                this.selectedVWPassats = vwpassat;
                 this.editMode=false;
                 this.loading=false;
             })
@@ -90,14 +88,13 @@ export default class AAStore{
             })
         }
     }
-    deleteAudiAs = async(aa_id: number) => {
+    deleteVWPassats = async(vwp_id: string) => {
         this.loading = true;
         try {
-            await aaagent.AudiAs.delete(aa_id);
             runInAction (() =>
             {
-                this.audiasRegistry.delete(aa_id)
-                if(this.selectedAudiAs?.aa_id === aa_id) this.cancelSelectedAudiAs();
+                this.vwpassatsRegistry.delete(vwp_id)
+    
                 this.editMode=false;
                 this.loading=false;
             })

@@ -1,6 +1,6 @@
 export interface RollsRoyce{
   rr_image: string;
-  rr_id: string;
+  rr_id: number;
   rr_name: string;
   rr_type: string;
   rr_year: number;

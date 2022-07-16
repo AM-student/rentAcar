@@ -6,7 +6,7 @@ import { useVWGStore } from "../../../app/stores/vwgstore";
 export default function VWGolfsDetails(){
   
   const {VWGolfStore} = useVWGStore();
-  const {selectedVWGolfs: vwgolfs, openForm, cancelSelectedVWGolfs, deleteVWGolfs} = VWGolfStore;
+  const {selectedVWGolf: vwgolfs, openForm, cancelSelectedVWGolf, deleteVWGolf} = VWGolfStore;
 
   if(!vwgolfs) return <LoadingComponent />;
 
@@ -15,7 +15,7 @@ export default function VWGolfsDetails(){
         <Card fluid>
         <Image src={vwgolfs.vwg_image} />
         <Card.Content>
-          <Card.Header>VWGolfs ID: {vwgolfs.vwg_id}</Card.Header>
+          <Card.Header>VWGolfs Plate: {vwgolfs.vwg_targa}</Card.Header>
           <Card.Meta>
               <span>
                   {vwgolfs.vwg_name} {vwgolfs.vwg_type}
@@ -31,8 +31,8 @@ export default function VWGolfsDetails(){
         <Card.Content extra>
           <Button.Group widths='3'>
               <Button onClick={() => openForm(vwgolfs.vwg_id)}basic color="green" content="Edit"/>          
-              <Button onClick={cancelSelectedVWGolfs} basic color="yellow" content="Cancel"/>          
-              <Button onClick={() =>deleteVWGolfs(vwgolfs.vwg_id)}basic color="red" content="Delete"/>
+              <Button onClick={cancelSelectedVWGolf} basic color="yellow" content="Cancel"/>          
+              <Button onClick={() =>deleteVWGolf(vwgolfs.vwg_id)}basic color="red" content="Delete"/>
           </Button.Group>
         </Card.Content>
       </Card>

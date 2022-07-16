@@ -31,10 +31,10 @@ const requests = {
 
 const VWGolfs = {
     list: () => requests.get<VWGolf[]>('/VWGolf'),
-    details: (vwg_id: string) => requests.get<VWGolf>(`/VWGolf/${vwg_id}`),
+    details: (vwg_id: number) => requests.get<VWGolf>(`/VWGolf/${vwg_id}`),
     create: (vwgolf: VWGolfce) => requests.post<void>('/VWGolf', vwgolf),
     update: (vwgolf: VWGolf) => requests.put<void>(`/VWGolf/${vwgolf.vwg_id}`, vwgolf),
-    delete: (vwg_id: string) => requests.del<void>(`/VWGolf/${vwg_id}`),
+    delete: (vwg_id: number) => requests.del<void>(`/VWGolf/${vwg_id}`),
 
 }
 
