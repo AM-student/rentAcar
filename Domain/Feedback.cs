@@ -9,7 +9,7 @@ namespace Domain
     public class Feedback
     {
         [Key]
-        public string fb_id { get; set; }
+        public int fb_id { get; set; }
         public string fb_image { get; set; }
 
         public string name_fb { get; set; } = string.Empty;

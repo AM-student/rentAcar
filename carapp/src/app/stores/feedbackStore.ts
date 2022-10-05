@@ -7,7 +7,7 @@ import { Feedbackce } from "../models/feedbackce";
 export default class FeedbackStore{
 
     feedback: Feedback[] = [];
-    feedbsRegistry = new Map<string, Feedback>();
+    feedbsRegistry = new Map<number, Feedback>();
     feedbsce: Feedbackce[] = [];
     selectedFeedback: Feedback | undefined = undefined ;
     selectedFeedbackce: Feedbackce | undefined = undefined ;
@@ -41,13 +41,13 @@ export default class FeedbackStore{
     setLoadingInitial = (state: boolean) =>{
         this.loadingInitial = state
     }
-    selectFeedback = (fb_id: string) => {
+    selectFeedback = (fb_id: number) => {
         this.selectedFeedback = this.feedbsRegistry.get(fb_id);
     }
     cancelSelectedFeedback = () => {
         this.selectedFeedback = undefined;
     }
-    openForm = (fb_id?: string) => {
+    openForm = (fb_id?: number) => {
         fb_id ? this.selectFeedback(fb_id) :this.cancelSelectedFeedback();
         this.editMode = true;
     }
@@ -92,7 +92,7 @@ export default class FeedbackStore{
             })
         }
     }
-    deleteFeedback = async(fb_id: string) => {
+    deleteFeedback = async(fb_id: number) => {
         this.loading = true;
         try {
             await fbagent.Feedbacks.delete(fb_id);

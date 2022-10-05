@@ -31,10 +31,10 @@ const requests = {
 
 const Feedbacks = {
     list: () => requests.get<Feedback[]>('/Feedback'),
-    details: (fb_id: string) => requests.get<Feedback>(`/Feedback/${fb_id}`),
+    details: (fb_id: number) => requests.get<Feedback>(`/Feedback/${fb_id}`),
     create: (feedb: Feedbackce) => requests.post<void>('/Feedback', feedb),
     update: (feedb: Feedback) => requests.put<void>(`/Feedback/${feedb.fb_id}`, feedb),
-    delete: (fb_id: string) => requests.del<void>(`/Feedback/${fb_id}`),
+    delete: (fb_id: number) => requests.del<void>(`/Feedback/${fb_id}`),
 
 }
 

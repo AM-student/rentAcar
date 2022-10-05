@@ -22,7 +22,7 @@ namespace API
 
             var services = scope.ServiceProvider;
 
-            try{
+           /* try{
                 var context = services.GetRequiredService<DataContext>();
                 await context.Database.MigrateAsync();
                 await Seed.SeedData(context);
@@ -31,7 +31,7 @@ namespace API
             {
                 var logger = services.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex,"an error has occured in migration");
-            }
+            }*/
             await host.RunAsync();
         }
 

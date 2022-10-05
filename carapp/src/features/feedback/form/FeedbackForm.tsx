@@ -11,7 +11,7 @@ export default observer(function FeedbackForm(){
     const {selectedFeedback, selectedFeedbackce, updateFeedback, createFeedback, loading,closeForm } = feedbackStore;
 
     const initialState = selectedFeedback ?? {
-        fb_id: '',
+        fb_id: 0,
         fb_image:'',
         email_fb: '',
         name_fb: '',
@@ -40,15 +40,14 @@ export default observer(function FeedbackForm(){
     }
 
     return(
-        <Segment clearing>
-            <Form onSubmit={handleSubmit}>
-                <Form.Input placeholder='ID' value={feedb.fb_id} name='fb_id' onChange={handleInputChange} />
+        <Segment clearing onSubmit={handleSubmit}>
+            <Form>
                 <Form.Input placeholder='Email' value={feedb.email_fb} name='email_fb' onChange={handleInputChange} />
                 <Form.Input placeholder='Name' value={feedb.name_fb} name='name_fb' onChange={handleInputChange}/>
                 <Form.Input placeholder='Issue' value={feedb.text_fb} name='text_fb' onChange={handleInputChange}/>
                 <Form.Input placeholder='Image' value={feedb.fb_image} name='fb_image' onChange={handleInputChange}/>
 
-                <Button loading={loading}floated="right" positive type="submit" content='Add' value={feedb.email_fb} name='email' onChange={handleInputChange} />
+                <Button loading={loading} floated="right" positive type="submit" content='Add' value={feedb.name_fb} name='name_fb' onChange={handleInputChange} />
                 <Button onClick={closeForm} floated="right" negative type="button" content='Cancel'/>
             </Form>
         </Segment>

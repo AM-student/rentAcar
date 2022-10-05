@@ -11,7 +11,7 @@ export default observer(function FeedbackList(){
     const { deleteFeedback, loading, feedback } = feedbackStore;
 
 
-    function handleSalespersonDelete(e: SyntheticEvent<HTMLButtonElement>, fb_id: string){
+    function handleSalespersonDelete(e: SyntheticEvent<HTMLButtonElement>, fb_id: number){
         setTarget(e.currentTarget.name);
         deleteFeedback(fb_id);
     }

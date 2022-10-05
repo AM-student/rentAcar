@@ -13,7 +13,7 @@ namespace Application.Feedbacks
     {
         public class  Query : IRequest<Feedback>
         {
-            public string Id { get; set;}
+            public int Id { get; set;}
         }
 
         public class Handler : IRequestHandler<Query, Feedback>
